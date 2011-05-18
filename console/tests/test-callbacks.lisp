@@ -1,0 +1,10 @@
+
+(set 'libcairo (xl:dlopen "libcairo.dylib"))
+(set 'cairo:set-source-rgb (xl:dlsym libcairo "cairo_set_source_rgb"))
+(set 'cairo:rectangle      (xl:dlsym libcairo "cairo_rectangle"))
+(set 'cairo:fill           (xl:dlsym libcairo "cairo_fill"))
+(set 'console:expose-event '(lambda (context)
+  (cairo:set-source-rgb context 0 1 0)
+  (cairo:rectangle context 10 10 30 30)
+  (cairo:fill context)))
+(xl:dlclose libcairo)

@@ -1,0 +1,93 @@
+= LAMBDA =
+
+== How does the magic work ? ==
+
+How do we move from something like this:
+
+  (defun factorial (n) 
+    (if (<= n 1) 
+      1 
+      (* n (factorial (- n 1)))))
+
+To something which can calculate a factorial ?
+
+It is actually surprisingly simple and our journey will start buy building a parser.
+
+What is a parser ?
+
+Simply put, a parser applies a set of rules to an input stream in order to transform that input stream into
+a structure suitable for manipulation by computer.
+
+This step _adds_ information.
+
+In the case of lisp parsers, we are taking an input stream of ASCII encoded text and we are transforming it 
+into a tree made up of s-expressions 
+
+
+
+= Function Documentation =
+
+== Special Functions ==
+
+(xl:garbage-collect) - Trigger garbage collection
+
+(xl:dump-environment) - Dump environment
+
+(xl:dump-symbol-list) - Dump symbol table
+
+
+
+
+--
+
+
+Notes on order of discovery:
+  * The first task is to just mirror the input. What you put in comes out again.
+  * Add the first level of smarts by parsing the input into s-expressions to reveal the structure of the input.
+  * Add the second level of smarts by starting to associate semantic actions to specific s-expressions
+  * What are the minimum semantic actions to write programs ?
+  * What are the minimum semantic actions to write a lisp interpreter ?
+
+
+--
+
+References
+  Gary Flake
+  Paul Graham
+
+--
+
+
+/*
+. We start off with some things set in stone.
+. We build basic mechanisms that can map from a set of patterns to what is set in stone.
+. We can use those mechanisms to build bigger abstractions such as a virtual machine 
+  we can run code on which allows us to choose what, if anything, we want to set in stone.
+. If we swap out the underlying hardware with something like a FPGA then, in principle,
+  we can map our vm back to the metal.
+
+Which leaves the whole thing I suppose to reduction exercises...
+
+Compilers are not functions:
+
+  Take as input a specification for a transformation - this is the function - then reduce
+  that specification to the point that it can execute fast enough on whatever passes for
+  the metal.
+  
+Compiler compilers are not compilers:
+
+  Take as input a specification for how to apply a specification for a transformation to 
+  a specification for whatever passes for metal and reduce it to the point that it can
+  excecute fast enough on whatever passes for the metal.
+  
+  
+Metal is subject to constraints such as:
+
+  . energy efficiency
+  . manufacturing investment cost
+
+So, the VM as processor or the VM as abstract turing machine ?
+*/
+
+
+

@@ -1,0 +1,36 @@
+= ROADMAP =
+* python bindings for xo-lambda 
+** clean up Makefiles for libconsole & liblithp
+*** static linking for console&lithp rather than shared
+* (set 'console:expose-event 
+  '(lambda (context) 
+     (cairo:rectangle context (/ console:width 2) (/ console:height 2) 10 10)
+     (cairo:fill context)))
+* Bugs
+** Numbers crash out lithp               FIXED
+** Weirdness with lithp gc under Linux   FIXED
+
+* Editing lisp definitions opens new buffers with the definition in it 
+  so for e.g. editing the definition of the expose event will open a new 
+  buffer with everything inside of it which will also give us a nice place
+  to play with cairo in real time :)
+
+* We need some kind of class browser
+* We need some kind of help window
+
+;(set 'cairo:set-source-rgb (dlsym nil "set_source_rgb"))
+
+(set 'libcairo (xl:dlopen "libcairo.dylib"))
+(set 'cairo:set-source-rgb (xl:dlsym libcairo "cairo_set_source_rgb"))
+(set 'cairo:rectangle      (xl:dlsym libcairo "cairo_rectangle"))
+(set 'cairo:fill           (xl:dlsym libcairo "cairo_fill"))
+(set 'console:expose-event '(lambda (context)
+  (cairo:set-source-rgb context 0 1 0)
+  (cairo:rectangle context 10 10 30 30)
+  (cairo:fill context)))
+(xl:dlclose libcairo)
+
+--
+
+2008/09/15 Monday
+

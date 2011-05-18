@@ -1,0 +1,56 @@
+= About =
+
+XO-Lambda is a simple Lisp interpreter for the OLPC XO-1 featuring:
+
+* Integer & Real numeric types
+* Mark & Sweep garbage collection
+* A simple foreign function interface
+* A full screen editor which can freely mix text and graphics
+* Implemented in ~2000 lines of (mostly) C
+* Released under a MIT/X11 license
+
+The goal of xo-lambda is not to be a full featured, standards
+compliant, high performance Lisp as there already exists several
+excellent examples of such systems!
+
+Rather, the xo-lambda system attempts to accomplish two highly
+specialized objectives:
+
+
+1. Fun - A text based Lisp console may be a barrel-load of fun if all
+         you have is a 300 baud modem and an account on a university
+         mainframe but if you have a bitmapped color display, a video
+         camera, microphone and 16 bit digital audio you have to ask
+         yourself: "Can this thing sing?"
+
+2. Simplicity - There is an enormous difference in complexity between
+                the original single page implementation of Lisp in
+                John McCarthy's 1960 paper and modern
+                implementations. Given the performance improvements
+                computers have seen in the last few years it seems
+                that there is significant educational value to be
+                gotten from a system which, while performant enough to
+                have fun, is still simple enough that it can reveal
+                all of its secrets to the dedicated student in a
+                reasonable amount of time.
+
+
+= Development Roadmap =
+
+* Error handling
+* Help system
+* Sugarization
+** Add support for Journal
+** Add support for Activity Sharing
+* Support XO-1 multimedia hardware:
+** Camera
+** Audio
+* Better garbage collector
+* Tutorials
+* EmacsCompatibilityMode
+* Debugger
+* PEGs
+* Compiler
+* Assembler
+* MMIX virtual machine 
+

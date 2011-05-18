@@ -1,0 +1,36 @@
+
+* For pre-alpha:
+
+** MANIFEST 
+** activity.info
+** Build bundle
+** Test bundle
+** Upload bundle
+
+
+** Merge repos or figure out some other way to locate the source.
+*** Fix console project layout
+*** Stick console on central repository
+*** Link remote repos for console&lithp into xo-lambda project structure
+*** Stick xo-lambda on a remote repo
+
+** Down arrow goes down a line even if there is no text directly below the line
+** #FUNCTION signatures ? :)
+** Build an activity bundle
+** Fix broken expressions killing the interpreter
+** Detect infinite loops in the interpreter ?
+** Fix undefined atoms killing the interpreter
+
+** Only execute if there is code on the line which enter is pressed on FIXED
+** Ignore newlines, only grab whole expression preceding point where enter is hit, if no expression just insert a newline. FIXED
+
+
+* Look for a free replacement for Monaco_Linux.ttf or figure out why DejaVu breaks. Maybe also look at what pippy uses.
+* Improve editor
+** Scrolling
+** Copy & Paste
+** Handle formatted code
+** Figure out why lots of text slows things down so badly
+* Figure out why I have to force a GC every expose
+* A help box
+* Open up new 'buffer' when editing symbol definitions - e.g. console:expose-event gets a screen of it's own

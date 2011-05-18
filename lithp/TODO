@@ -1,0 +1,189 @@
+= ROADMAP =
+
+* Interpret the Lisp                   DONE 
+* Collect the garbage                  DONE
+* Create the liblithp                  DONE
+** Switch external interface to wchar_t  DONE
+** Add Expression_to_string()            DONE
+
+* Grant the ability of the FFI         BUSY
+** (xl:dlopen), (xl:dlclose) (xl:dlsym) DONE
+** test single arg libc.printf          DONE
+** Pass multiple arguments to functions DONE
+** test multi arg libc.printf           DONE
+** Fix order of arguments to functions  DONE
+** Map nil_ to null                     TEST
+** ADD integer & real                   DONE
+** How can we handle return values better ?
+** (xl:load-library library-name)
+** (library-name:fn arg1 ...)
+** Clean the really crufty implementation
+
+* Parse strings properly               BUSY          
+** Parse " tokens correctly DONE  
+** Handle escape characters e.g. \n \" etc
+
+* Clean up the Lisp                    BUSY
+** Break some more stuff into separate files
+** check that all allocated memory and created objects are being initialized properly
+** Replace references to null to nil_ where possible    
+** Rewrite the GC to work on malloc level rather than 
+   new_Expression() level and lose gc_protect()
+** Fix the mess the GC has made of the functional style of my code
+** Use lisp primitives to manage GC lists 
+** use the perror                                       STARTED
+** check malloc return values                           DONE
+
+* i18n
+** Modify internals to work with utf-8
+** Modify Expression_to_string to convert internal utf-8 to wchar_t
+* Implement the prelude
+** Need a &rest
+* Interpret the Lisp interpreter
+* Handle the errors
+** Count the brackets
+** Handle the unassociated symbol
+* Handle the numbers
+** integers and reals DONE
+** Support negative numbers :)
+** Add support for natural & rational numbers
+* Publish the Lisp
+* Grant the ability of the Macros
+* Compile the Lisp
+
+
+--
+
+= BUGS =
+
+* dump ending up with atoms on the cdr of a list during label eval
+  temp workaround: while (e != nil_ && e->type == list) { }
+* ;(factorial 34)  ; Why is the overflow evaluating to 0 ?
+
+--
+
+2008/09/25 - Thursday
+* Fixed bug in Expression_parse() where minimal expressions without delimiters or trailing whitespace were killing the parser
+* Created remote repository
+
+2008/09/22 - Monday
+* Worked on GC
+* Broke math functions into seperate files
+* Added GT, GTE, LT, LTE operators
+* Expression_call()
+* Added PROGN, QUIT
+* Expression_lambda now supports implicit PROGN
+* Smartened main.Read() up somewhat
+* Worked on tests
+
+2008/09/20 - Saturday / Sunday
+* Added some tests for cairo
+** Broke some stuff into external files         
+** Add simple numeric types integer & real          
+** Evaluate arguments before pushing them onto the argument stack for ffi 
+** Implement implicit progn's for lambda evaluation 
+** Hooked Console_expose up to the lithp            
+** Implemented ';' character for comments           
+
+
+2008/09/18-19 Thursday-Friday
+* Parse strings properly in Expression_parse
+* Implemented a very simple FFI:
+** (set 'libfoo (dlopen "foo.so")) 
+** (set 'somefn (dlsym libfoo "somefn"))
+** (somefn arg1 arg2 ...)
+** (dlclose (libfoo))
+
+
+2008/09/17 Wednesday
+* Fixed bug where allocated but uninitialized memory was causing causing Non-aligned pointer errors during gc_collect()
+* All mallocs are bzero(3)-ed now.
+
+
+2008/09/13 Saturday
+* Interpreter can now be embedded in other programs
+* Makefile builds a static library of the interpreter
+* Small fixes for Expression_parse()
+* Pull common definitions from phlo.h 
+
+2008/09/12 Friday
+  * Added a Expression_to_string()
+  * Switched external interface to wchar_t
+  
+
+2008/08/24 Monday
+  * Interpret the Lisp DONE
+
+2008/08/23 Saturday / Sunday - Interpret the Lisp
+  * Swapped null for nil_   DONE
+  * Should new_Expression(null, null) -> new_Expression(nil_, nil_) ?
+  * Bugs:
+    . plus does not expand variables or expressions DONE
+    . the lambda it does not work with the numbers  DONE
+    . the label it is still broken
+
+2008/08/22 Friday - Interpret the Lisp
+  * Canonicalized assoc       DONE
+  * Implemented intern        DONE
+  * Implemented a symbol_list DONE
+  * Implement an Expression_null DONE
+    . Lose all explicit null checks  DONE
+    . Do null/nil_ checks for Expression_car/cdr ?
+    . Lose all direct pointer access ? I'll miss it... ?
+  * Bugs:
+    . plus does not expand variables or expressions
+    . the lambda it does not work with the numbers -> see previous
+    . the label it is still broken
+
+2008/08/21 Thursday - Interpret the Lisp
+  * Bugs:
+    . (cond ('t 'foo)) - quoted values aren't being expanded properly
+      - (quote t) is evaluating to t not T 
+      - this fixes if I switch from: ((eq (car e) 'quote) (cadr e))
+                                 to: ((eq (car e) 'quote) (eval (cadr e) a))
+    . ((lambda (x) (plus x 1)) 2) not evalling numbers
+
+2008/08/20 Wednesday - Interpret the Lisp
+  * Bugs:
+    . (cond ((eq 'a 'b) 'first) ((eq 'a 'b) 'second) ('t 'third)) FIXED 
+  * Interpret the Lisp   
+    . implement primitives DONE
+      - cond    DONE
+      - (cond ((eq 'a 'b) 'first) ((atom 'a)  'second)) cores FIXED
+
+2008/08/19 Tuesday - Interpret the Lisp
+  * (atom 3) is not self-evalling 3  - atom test is !list FIXED
+  * Look at how stutter expressions are structured that it's car works. FIXED
+  * Interpret the Lisp
+    . implement primitives
+      - car     DONE
+      - cdr     DONE
+      - cond    BUSY
+
+2008/08/15 Friday - Interpret the Lisp
+  * Threw out parser and started again with a structure similiar to Gary Flake's stutter parser.
+  * Interpret the Lisp
+    . implement '              DONE
+    . implement cons           DONE
+    . implement primitives
+      - quote   DONE
+      - atom    DONE
+      - eq      DONE
+      - cons    DONE
+      - car     problems w/ list rep?
+      - cdr     problems w/ list rep?
+
+2008/08/14 Thursday - Interpret the Lisp
+  * Interpret the Lisp
+    . implement '             
+    . implement cons           
+
+2008/08/11 Monday - Interpret the Lisp
+  * Interpret the Lisp
+    . implement '
+
+2008/08/10 Sunday - Interpret the Lisp
+  * Interpret the Lisp
+    . () crashes interpreter   FIXED
+
+

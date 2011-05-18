@@ -1,0 +1,9 @@
+[Activity]
+name = Lambda
+bundle_id = org.artifactual.LambdaActivity
+class = activity.LambdaActivity
+icon = activity-icon
+activity_version = 1
+mime_types =
+show_launcher = yes
+update_url = http://dev.laptop.org/~antoine/bundles/xo-lambda.html
